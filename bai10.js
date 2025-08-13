@@ -1,23 +1,25 @@
-// Hàm generic T để xử lý câu đầu vào
 function findLongestUniqueWord(sentence) {
-    // Tách câu thành mảng từ
     const words = sentence.split(" ");
-    // Hàm kiểm tra từ có ký tự trùng hay không
-    const hasUniqueChars = (word) => {
-        const charSet = new Set(word); // Set chỉ giữ ký tự duy nhất
-        return charSet.size === word.length;
-    };
-    // Lọc các từ không chứa ký tự trùng
-    const uniqueWords = words.filter(hasUniqueChars);
-    // Tìm từ dài nhất
-    let longestWord = "";
-    for (const word of uniqueWords) {
-        if (word.length > longestWord.length) {
-            longestWord = word;
+    let longest = null;
+
+    for (const word of words) {
+        let hasDuplicate = false;
+        for (let i = 0; i < word.length; i++) {
+            for (let j = i + 1; j < word.length; j++) {
+                if (word[i] === word[j]) {
+                    hasDuplicate = true;
+                    break;
+                }
+            }
+            if (hasDuplicate) break;
+        }
+        if (!hasDuplicate && (!longest || word.length > longest.length)) {
+            longest = word;
         }
     }
-    return longestWord;
+
+    return longest;
 }
-// ====== Test thử ======
-console.log(findLongestUniqueWord("hello world apple banana orange pumpkin cucumber"));
-// Kết quả: "orange"
+
+const sentence = "hello world apple banana orange pumpkin cucumber";
+console.log(findLongestUniqueWord(sentence)); // "orange"
