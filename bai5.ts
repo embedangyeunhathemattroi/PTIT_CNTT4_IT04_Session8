@@ -1,21 +1,21 @@
 
-function findFirstEvenAndMatch<T>(arr: T[], predicate: (item: T) => boolean): T | undefined {
-    return arr.find(item => {
-  
+function findFirstDivisibleByTwo<T>(arr: T[]): T | undefined {
+
+    for (let item of arr) {
+
         if (typeof item === "number" && item % 2 === 0) {
-            return predicate(item);
+            return item; 
         }
-        return false;
-    });
+    }
+
+    return undefined;
 }
 
-const numbersssss = [1, 3, 5, 8, 10, 12];
 
-const result1 = findFirstEvenAndMatch(numbersssss, num => num > 5);
+const numbers =[1, 3, 5, 8, 10, 12];
+const result1 = findFirstDivisibleByTwo(numbers);
 console.log(result1); 
 
-const mixed: (number | string)[] = [1, "hello", 4, "world", 6];
-
-const result2 = findFirstEvenAndMatch(mixed, item => typeof item === "number" && item > 4);
-console.log(result2);
-
+const mixed = ["hello", 3, 9, 12, "world"];
+const result2 = findFirstDivisibleByTwo(mixed);
+console.log(result2); 
